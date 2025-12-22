@@ -7,11 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
         content="Ember Brokerage provides client-focused, end-to-end real estate services — buying, selling, and closing with confidence." />
-    <link rel="icon" href="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" />
+
+
+    <meta name="keywords"
+        content="real estate brokerage , buy home , sell home , real estate agents , property investment " />
+
+    <link rel="canonical" href="https://www.emberbrokerage.com/" />
+
+    <meta property="og:title" content="Top Real Estate Brokerage in  | Ember Brokerage" />
+    <meta property="og:description"
+        content="Expert real estate agents helping you buy, sell & invest in property with confidence. Serving , ." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.emberbrokerage.com/" />
+    <meta property="og:image"
+        content="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" />
+    <link rel="icon"
+        href="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" />
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
+
+        <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Ember Brokerage",
+  "image": "https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png",
+  "@id": "https://www.emberbrokerage.com",
+  "url": "https://www.emberbrokerage.com",
+  "telephone": "+1-555-123-4567",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "YOUR STREET ADDRESS",
+    "addressLocality": "[CITY]",
+    "addressRegion": "[STATE]",
+    "postalCode": "ZIP",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "[CITY], [STATE]"
+  },
+  "priceRange": "$$",
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "sameAs": [
+    "https://www.facebook.com/yourpage",
+    "https://www.instagram.com/yourpage",
+    "https://www.linkedin.com/company/yourpage"
+  ]
+}
+</script>
 
 
 </head>
@@ -22,7 +68,8 @@
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <a href="#home" class="flex items-center gap-3">
-                    <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" class="w-10" alt="Ember Brokerage" />
+                    <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png"
+                        class="w-10" alt="Ember Brokerage" />
                     <span class="font-bold text-xl" style="color: #137752;">Ember <span
                             style="font-weight: 100;">Brokerage</span></span>
                 </a>
@@ -112,17 +159,17 @@
                         Speak with an experienced real estate expert — no pressure.
                     </p>
 
-                    <form class="space-y-4">
-                        <input type="text" placeholder="Name"
+                    <form id="heroForm" class="space-y-4">
+                        <input name="name" id="hero_name" type="text" required placeholder="Name"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <input type="email" placeholder="Email"
+                        <input name="email" id="hero_email" type="email" required placeholder="Email"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <input type="tel" placeholder="Phone"
+                        <input name="phone" id="hero_phone" type="tel" placeholder="Phone"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <textarea rows="3" placeholder="How can we help?"
+                        <textarea name="message" id="hero_message" rows="3" placeholder="How can we help?"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]"></textarea>
 
-                        <button type="submit"
+                        <button type="submit" id="heroSubmit"
                             class="w-full bg-black text-white py-3 rounded-lg font-medium transition hover:scale-[1.02]">
                             Request Consultation
                         </button>
@@ -287,29 +334,6 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="service-card p-8 rounded-3xl shadow-lg hover:shadow-2xl transition reveal">
-                    <div class="service-icon-wrap service-ghost mb-4">
-                        <svg class="w-7 h-7 text-[#137752]" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 1a3 3 0 0 0-3 3v3H6a2 2 0 0 0-2 2v7h16v-7a2 2 0 0 0-2-2h-3V4a3 3 0 0 0-3-3zM9 10v-3a3 3 0 0 1 6 0v3H9z" />
-                        </svg>
-                    </div>
-                    <div class="flex-1 flex flex-col">
-                        <h4 class="text-xl font-semibold mb-2">
-                            Operational & Back Office Support
-                        </h4>
-                        <p class="text-gray-600 mb-4">
-                            We handle the paperwork, compliance, transaction coordination, and operational workflows so
-                            agents can focus on clients and closings.
-                        </p>
-                        <ul class="text-sm text-gray-500 space-y-2">
-                            <li>✔ Dedicated transaction coordinator</li>
-                            <li>✔ Vendor management</li>
-                            <li>✔ Personalized timeline</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -317,7 +341,8 @@
     <!-- HOW WE WORK -->
     <section id="how" class="py-20 relative">
         <div class="absolute inset-0 z-0 bg-cover bg-center"
-            style="background-image: url('https://res.cloudinary.com/de7y9vclv/image/upload/v1766439145/francesca-tosolini-XcVm8mn7NUM-unsplash_n7hyip.jpg');"></div>
+            style="background-image: url('https://res.cloudinary.com/de7y9vclv/image/upload/v1766439145/francesca-tosolini-XcVm8mn7NUM-unsplash_n7hyip.jpg');">
+        </div>
         <div class=" absolute inset-0 z-5 bg-gradient-to-b from-black/70 to-black/70"></div>
 
         <div class="relative max-w-7xl mx-auto px-6">
@@ -394,7 +419,8 @@
                     </div>
 
                     <div class="w-full max-w-md">
-                        <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/map_USZIP_jll3xk.png" alt="Our process illustration" class="w-full rounded-3xl" />
+                        <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/map_USZIP_jll3xk.png"
+                            alt="Our process illustration" class="w-full rounded-3xl" />
                     </div>
                 </div>
             </div>
@@ -632,7 +658,7 @@
                         Fill out the form and we'll connect within 24 hours.
                     </p>
 
-                    <form class="space-y-4">
+                    <form id="contactForm" class="space-y-4">
                         <input name="name" placeholder="Name"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
                         <input name="email" type="email" placeholder="Email"
@@ -673,7 +699,8 @@
 
             <!-- LOGO + NAME -->
             <a href="#home" class="inline-block mb-4">
-                <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" alt="Ember Brokerage Logo" class="h-16 mx-auto mb-2">
+                <img src="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png"
+                    alt="Ember Brokerage Logo" class="h-16 mx-auto mb-2">
                 <span class="font-bold text-xl" style="color: #137752;">Ember <span
                         style="font-weight: 100;">Brokerage</span></span>
             </a>
@@ -690,7 +717,8 @@
             <!-- COPYRIGHT + LINKS -->
             <div class="flex items-center justify-center space-x-4 text-sm">
                 <p class="text-slate-300">© <span id="currentYear">2025</span> <span
-                        style="color: #137752; font-weight: bold;"> Ember <span style="font-weight: 300;">Brokerage</span></span></p>
+                        style="color: #137752; font-weight: bold;"> Ember <span
+                            style="font-weight: 300;">Brokerage</span></span></p>
                 <span class="text-slate-600">•</span>
                 <a href="privacy-policy.html" class="text-slate-300 hover:text-[#137752] transition">
                     Privacy Policy
@@ -701,6 +729,8 @@
     </footer>
 
 </body>
+<!-- EmailJS SDK (used to send form submissions to your email). Replace IDs in `script.js` with your EmailJS values. -->
+<script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
 <script src="script.js"></script>
 
 </html>

@@ -1,16 +1,28 @@
-        const closeMenuBtn = document.getElementById("closeMenuBtn");
+// === EmailJS configuration (replace placeholders with your EmailJS IDs) ===
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_HERO = 'YOUR_TEMPLATE_HERO';
+const EMAILJS_TEMPLATE_CONTACT = 'YOUR_TEMPLATE_CONTACT';
+const EMAILJS_USER_ID = 'YOUR_USER_ID'; // public key
 
-        if (closeMenuBtn) {
-            closeMenuBtn.addEventListener("click", () => {
-                if (typeof closeMobileMenu === 'function') closeMobileMenu();
-                else mobileMenu.classList.add('hidden');
-            });
-        }
+if (window.emailjs && typeof emailjs.init === 'function') {
+    try { emailjs.init(EMAILJS_USER_ID); } catch (e) { console.warn('emailjs.init failed', e); }
+} else {
+    console.warn('EmailJS SDK not detected. Make sure the SDK script is included before script.js');
+}
 
-        const body = document.body;
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-        const siteNav = document.getElementById("siteNav");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", () => {
+        if (typeof closeMobileMenu === 'function') closeMobileMenu();
+        else mobileMenu.classList.add('hidden');
+    });
+}
+
+const body = document.body;
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const siteNav = document.getElementById("siteNav");
 
 
         // Mobile menu open/close with smooth animations and scroll lock
@@ -216,3 +228,5 @@
             });
         }
     })();
+
+
