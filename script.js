@@ -80,6 +80,8 @@
                         if (mobileMenu && mobileMenu.classList.contains('open')) closeMobileMenu();
                     }
                 }
+
+            
             });
         });
         // Testimonial rotation with touch swipe support
@@ -136,3 +138,81 @@
                 });
             }
         }
+
+    
+    ;(function () {
+        const COUNTER_DURATION = 1200;
+        const aboutSection = document.getElementById('about');
+        let animating = false;
+
+        function formatNumber(value) {
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function resetCounts() {
+            const counts = document.querySelectorAll('.count');
+            counts.forEach((el) => {
+                const suffix = el.getAttribute('data-suffix') || '';
+                el.textContent = '0' + suffix;
+            });
+        }
+
+        function animateCounters() {
+            const counts = Array.from(document.querySelectorAll('.count'));
+            if (!counts.length) return;
+            if (animating) return;
+            animating = true;
+
+            const startTime = performance.now();
+            const targets = counts.map((el) => {
+                const t = parseInt(el.getAttribute('data-target') || '0', 10) || 0;
+                const suffix = el.getAttribute('data-suffix') || '';
+                return { el, target: t, suffix };
+            });
+
+            function step(now) {
+                const elapsed = Math.min(now - startTime, COUNTER_DURATION);
+                const progress = elapsed / COUNTER_DURATION;
+
+                targets.forEach(({ el, target, suffix }) => {
+                    const value = Math.floor(target * progress);
+                    el.textContent = formatNumber(value) + suffix;
+                });
+
+                if (elapsed < COUNTER_DURATION) {
+                    requestAnimationFrame(step);
+                } else {
+                    targets.forEach(({ el, target, suffix }) => {
+                        el.textContent = formatNumber(target) + suffix;
+                    });
+                    animating = false;
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        if ('IntersectionObserver' in window && aboutSection) {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                       
+                        resetCounts();
+                        
+                        setTimeout(animateCounters, 60);
+                    } else {
+                        
+                        resetCounts();
+                    }
+                });
+            }, { threshold: 0.35 });
+
+            io.observe(aboutSection);
+        } else {
+           
+            document.addEventListener('DOMContentLoaded', () => {
+                resetCounts();
+                setTimeout(animateCounters, 300);
+            });
+        }
+    })();
