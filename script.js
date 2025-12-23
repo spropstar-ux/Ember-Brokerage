@@ -1,15 +1,3 @@
-// === EmailJS configuration (replace placeholders with your EmailJS IDs) ===
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_HERO = 'YOUR_TEMPLATE_HERO';
-const EMAILJS_TEMPLATE_CONTACT = 'YOUR_TEMPLATE_CONTACT';
-const EMAILJS_USER_ID = 'YOUR_USER_ID'; // public key
-
-if (window.emailjs && typeof emailjs.init === 'function') {
-    try { emailjs.init(EMAILJS_USER_ID); } catch (e) { console.warn('emailjs.init failed', e); }
-} else {
-    console.warn('EmailJS SDK not detected. Make sure the SDK script is included before script.js');
-}
-
 const closeMenuBtn = document.getElementById("closeMenuBtn");
 
 if (closeMenuBtn) {
@@ -228,5 +216,111 @@ const siteNav = document.getElementById("siteNav");
             });
         }
     })();
+
+   
+        (function () {
+            function sanitizeNameInput(el) {
+                if (!el) return;
+                // remove digits on input
+                el.addEventListener('input', (e) => {
+                    const pos = el.selectionStart;
+                    const newVal = el.value.replace(/\d+/g, '');
+                    if (newVal !== el.value) {
+                        el.value = newVal;
+                        try { el.setSelectionRange(Math.max(0, pos - 1), Math.max(0, pos - 1)); } catch (er) { }
+                    }
+                });
+
+                // prevent pasting numbers
+                el.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+                    el.value += text.replace(/\d+/g, '');
+                });
+            }
+
+            function sanitizePhoneInput(el) {
+                if (!el) return;
+                // live-format as US phone number while typing
+                function formatUS(digits) {
+                    if (!digits) return '';
+                    // allow leading 1 for country code
+                    const leadingOne = digits[0] === '1';
+                    let main = leadingOne ? digits.slice(1) : digits;
+                    if (main.length > 10) main = main.slice(0, 10);
+
+                    let formatted = '';
+                    if (leadingOne) formatted = '1 ';
+
+                    if (main.length <= 3) {
+                        formatted += main;
+                    } else if (main.length <= 6) {
+                        formatted += '(' + main.slice(0, 3) + ') ' + main.slice(3);
+                    } else {
+                        formatted += '(' + main.slice(0, 3) + ') ' + main.slice(3, 6) + '-' + main.slice(6);
+                    }
+
+                    return formatted;
+                }
+
+                el.addEventListener('input', (e) => {
+                    const selStart = el.selectionStart;
+                    // keep only digits internally
+                    const rawDigits = el.value.replace(/\D+/g, '');
+                    const limited = rawDigits.slice(0, 11);
+                    const formatted = formatUS(limited);
+                    el.value = formatted;
+                    // try to restore cursor near the end (best-effort)
+                    try { el.setSelectionRange(el.value.length, el.value.length); } catch (er) { }
+                });
+
+                // paste: accept digits only and format
+                el.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+                    const digits = text.replace(/\D+/g, '');
+                    const combined = (el.value.replace(/\D+/g, '') + digits).slice(0, 11);
+                    el.value = formatUS(combined);
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Hero form fields
+                const heroName = document.getElementById('hero_name');
+                const heroPhone = document.getElementById('hero_phone');
+                sanitizeNameInput(heroName);
+                sanitizePhoneInput(heroPhone);
+
+                const heroForm = document.getElementById('heroForm');
+                if (heroForm) {
+                    heroForm.addEventListener('submit', (e) => {
+                        const phoneVal = (heroPhone && heroPhone.value) ? heroPhone.value.replace(/\D+/g, '') : '';
+                        if (!(phoneVal.length === 10 || phoneVal.length === 11)) {
+                            e.preventDefault();
+                            alert('Please enter a valid US phone number (10 or 11 digits).');
+                            if (heroPhone) heroPhone.focus();
+                            return false;
+                        }
+                    });
+                }
+
+                // Contact form name sanitization + submit check
+                const contactName = document.querySelector('#contactForm input[name="name"]');
+                sanitizeNameInput(contactName);
+
+                const contactForm = document.getElementById('contactForm');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', (e) => {
+                        const nameVal = (contactName && contactName.value) ? contactName.value : '';
+                        if (/\d/.test(nameVal)) {
+                            e.preventDefault();
+                            alert('Name cannot contain numbers.');
+                            if (contactName) contactName.focus();
+                            return false;
+                        }
+                    });
+                }
+            });
+        })();
 
 
