@@ -55,6 +55,9 @@ video {
     visibility: hidden;
     transform: translateY(-6px);
     transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    /* allow the menu itself to scroll on small screens */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 #mobileMenu.open {

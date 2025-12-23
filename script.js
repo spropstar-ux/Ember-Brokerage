@@ -12,6 +12,30 @@ const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 const siteNav = document.getElementById("siteNav");
 
+// Robust scroll lock (works on iOS/Chrome): fix body position and restore scroll on close
+let _scrollLockPos = 0;
+let _isScrollLocked = false;
+function lockScroll() {
+    if (_isScrollLocked) return;
+    _scrollLockPos = window.scrollY || document.documentElement.scrollTop || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${_scrollLockPos}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    _isScrollLocked = true;
+}
+
+function unlockScroll() {
+    if (!_isScrollLocked) return;
+    document.body.style.position = '';
+    const top = document.body.style.top;
+    document.body.style.top = '';
+    // restore scroll position
+    window.scrollTo(0, _scrollLockPos || 0);
+    _scrollLockPos = 0;
+    _isScrollLocked = false;
+}
+
 
         // Mobile menu open/close with smooth animations and scroll lock
         if (menuBtn && mobileMenu) {
@@ -20,7 +44,8 @@ const siteNav = document.getElementById("siteNav");
                 // force reflow so the transition fires
                 void mobileMenu.offsetWidth;
                 mobileMenu.classList.add('open');
-                document.body.style.overflow = 'hidden';
+                // lock background scroll while menu is open
+                lockScroll();
                 menuBtn.setAttribute('aria-expanded', 'true');
             }
 
@@ -28,8 +53,8 @@ const siteNav = document.getElementById("siteNav");
                 mobileMenu.classList.remove('open');
                 mobileMenu.classList.add('closing');
                 menuBtn.setAttribute('aria-expanded', 'false');
-                // allow page to scroll again
-                document.body.style.overflow = '';
+                // restore page scroll
+                unlockScroll();
 
                 const handler = function (e) {
                     if (e.target === mobileMenu) {
