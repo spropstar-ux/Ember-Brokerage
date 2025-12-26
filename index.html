@@ -24,6 +24,7 @@
     <link rel="icon"
         href="https://res.cloudinary.com/de7y9vclv/image/upload/v1766439144/Ember_Brokerage_fsuv3r_n0op9z.png" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
@@ -166,17 +167,17 @@
                         Speak with an experienced real estate expert — no pressure.
                     </p>
 
-                    <form id="heroForm" class="space-y-4">
-                        <input name="name" id="hero_name" type="text" required placeholder="Name"
+                    <form id="contactForm" class="space-y-4">
+                        <input name="name" id="contact_name" type="text" required placeholder="Name"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <input name="email" id="hero_email" type="email" required placeholder="Email"
+                        <input name="email" id="contact_email" type="email" required placeholder="Email"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <input name="phone" id="hero_phone" type="tel" placeholder="Phone"
+                        <input name="phone" id="contact_phone" type="tel" placeholder="Phone"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <textarea name="message" id="hero_message" rows="3" placeholder="How can we help?"
+                        <textarea name="message" id="contact_message" rows="3" placeholder="How can we help?"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]"></textarea>
 
-                        <button type="submit" id="heroSubmit"
+                        <button type="submit" id="contactSubmit"
                             class="w-full bg-black text-white py-3 rounded-lg font-medium transition hover:scale-[1.02]">
                             Request Consultation
                         </button>
@@ -663,28 +664,17 @@
                         Fill out the form and we'll connect within 24 hours.
                     </p>
 
-                    <form id="contactForm" class="space-y-4">
-                        <input name="name" placeholder="Name"
+                    <form id="heroForm" class="space-y-4">
+                        <input name="name" id="hero_name" type="text" required placeholder="Name"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <input name="email" type="email" placeholder="Email"
+                        <input name="email" id="hero_email" type="email" required placeholder="Email"
                             class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
-                        <select name="interest"
-                            class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752] text-gray-500">
-                            <option value="">
-                                -- Select your interest --
-                            </option>
-                            <option>Buying</option>
-                            <option>Selling</option>
-                            <option>
-                                Investing
-                            </option>
-                            <option>Other</option>
-                        </select>
-                        <textarea name="message" placeholder="Tell us a bit about your situation..."
-                            class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]"
-                            rows="4"></textarea>
+                        <input name="phone" id="hero_phone" type="tel" placeholder="Phone"
+                            class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]" />
+                        <textarea name="message" id="hero_message" rows="3" placeholder="How can we help?"
+                            class="w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-[#137752]"></textarea>
 
-                        <button type="submit"
+                        <button type="submit" id="heroSubmit"
                             class="w-full bg-black text-white py-3 rounded-lg font-medium transition hover:scale-[1.02]">
                             Request Consultation
                         </button>

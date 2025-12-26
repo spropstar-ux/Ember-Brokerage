@@ -349,3 +349,172 @@ function unlockScroll() {
         })();
 
 
+// ================= FORM SUBMIT HANDLER =================
+const heroForm = document.getElementById('heroForm');
+const contactForm = document.getElementById('contactForm');
+
+if (heroForm) {
+    heroForm.addEventListener('submit', e => {
+        e.preventDefault();
+        sendEmail(heroForm);
+    });
+}
+
+if (contactForm) {
+    contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        sendEmail(contactForm);
+    });
+}
+
+// ================= NAME SANITIZATION & PHONE FORMAT (hero + contact) =================
+function attachSimpleSanitizers(nameId, phoneId) {
+    const nameEl = document.getElementById(nameId);
+    if (nameEl) {
+        nameEl.addEventListener('input', () => {
+            nameEl.value = nameEl.value.replace(/[^a-zA-Z\s.'-]/g, '');
+        });
+    }
+
+    const phoneEl = document.getElementById(phoneId);
+    if (phoneEl) {
+        phoneEl.setAttribute('maxlength', '14');
+    }
+}
+
+attachSimpleSanitizers('hero_name', 'hero_phone');
+attachSimpleSanitizers('contact_name', 'contact_phone');
+
+const formatPhone = digits => {
+    if (digits.length > 6)
+        return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6,10)}`;
+    if (digits.length > 3)
+        return `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+    return digits ? `(${digits}` : '';
+};
+
+// live-format on input for any phone fields
+document.addEventListener('input', (e) => {
+    const el = e.target;
+    if (!el || el.tagName !== 'INPUT') return;
+    if (el.id === 'hero_phone' || el.id === 'contact_phone') {
+        let digits = el.value.replace(/\D/g, '').slice(0, 10);
+        el.value = formatPhone(digits);
+    }
+});
+
+document.addEventListener('blur', (e) => {
+    const el = e.target;
+    if (!el || el.tagName !== 'INPUT') return;
+    if (el.id === 'hero_phone' || el.id === 'contact_phone') {
+        let digits = el.value.replace(/\D/g, '');
+        el.value = digits.length === 10 ? formatPhone(digits) : digits;
+    }
+}, true);
+
+// ================= SEND EMAIL =================
+async function sendEmail(form) {
+    if (!form) return;
+    if (form.dataset.sending === 'true') return;
+    form.dataset.sending = 'true';
+
+    // ===== SUBMIT BUTTON + LOADER =====
+    const submitBtn = form.querySelector("button[type='submit']");
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+            '<span class="spinner-border spinner-border-sm"></span> Sending...';
+    }
+
+    const nameField = form.querySelector('input[name="name"]');
+    const emailField = form.querySelector('input[name="email"]');
+    const phoneField = form.querySelector('input[name="phone"]');
+    const messageField = form.querySelector('textarea[name="message"]');
+
+    const userName = nameField && nameField.value.trim()
+        ? nameField.value.trim().split(' ')[0]
+        : 'there';
+
+    const phoneDigits = phoneField?.value.replace(/\D/g, '') || '';
+
+    if (phoneDigits.length !== 10) {
+        Swal.fire({
+            title: "Invalid Phone 😕",
+            text: "Please enter a valid 10-digit phone number.",
+            icon: "warning",
+            confirmButtonColor: "#137752"
+        });
+
+        form.dataset.sending = 'false';
+        phoneField?.focus();
+
+        // loader OFF
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+        return;
+    }
+
+    phoneField.value = formatPhone(phoneDigits);
+
+    const data = {
+        name: nameField?.value.trim() || '',
+        email: emailField?.value.trim() || '',
+        phone: phoneField?.value.trim() || '',
+        message: messageField?.value.trim() || ''
+    };
+
+    try {
+        const res = await fetch(
+            "https://script.google.com/macros/s/AKfycbyynNo6yweIF1Tvsek3aFGA3HM_-m23TduJ9LPDtDiOzeYFsu3zTl4Py08MvNIZ54UznQ/exec",
+            {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await res.json();
+
+        if (result.status === "success") {
+            Swal.fire({
+                title: `Thank you, ${userName}!`,
+                html: `
+                    <p style="font-size:15px;">
+                         We’ve received your message.<br>
+                       Our team will connect with you shortly.
+                    </p>
+                    <p style="margin-top:18px;font-weight:bold;font-size:1.1rem;color:#000;">
+              – Ember Brokerage Team
+            </p>
+                `,
+                icon: "success",
+                confirmButtonText: "Close",
+                confirmButtonColor: "#137752"
+            });
+
+            form.reset();
+        } else {
+            throw new Error("Submission failed");
+        }
+    } catch (err) {
+        Swal.fire({
+            title: "Oops! 😬",
+            text: "Something went wrong. Please try again.",
+            icon: "error",
+            confirmButtonColor: "#137752"
+        });
+    } finally {
+        form.dataset.sending = 'false';
+
+        // ===== LOADER OFF =====
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+    }
+}
+
