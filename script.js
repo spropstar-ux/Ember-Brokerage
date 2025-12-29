@@ -469,7 +469,7 @@ async function sendEmail(form) {
 
     try {
         const res = await fetch(
-            "https://script.google.com/macros/s/AKfycbyynNo6yweIF1Tvsek3aFGA3HM_-m23TduJ9LPDtDiOzeYFsu3zTl4Py08MvNIZ54UznQ/exec",
+            "https://script.google.com/macros/s/AKfycbwT-Uax0f7oAsyjO2jBSNLCGAI9YMDKJNAVLVohZ74pFSwWcSuAt9FYzcWuL_uA48RULQ/exec",
             {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
