@@ -12,7 +12,7 @@ const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 const siteNav = document.getElementById("siteNav");
 
-// Robust scroll lock (works on iOS/Chrome): fix body position and restore scroll on close
+// Robust scroll lock 
 let _scrollLockPos = 0;
 let _isScrollLocked = false;
 function lockScroll() {
@@ -164,12 +164,12 @@ function unlockScroll() {
             }
         }
 
-        // Intercept in-page anchor clicks so the URL hash doesn't change
-// Smooth-scroll to the target element and close the mobile menu if open
+
+// Smooth anchor scrolling with mobile menu close
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href || href === '#') return; // ignore empty/hash-only links
+    if (!href || href === '#') return; 
     const id = href.slice(1);
     const target = document.getElementById(id);
     if (target) {
@@ -487,7 +487,7 @@ async function sendEmail(form) {
 
     try {
         const res = await fetch(
-            "https://script.google.com/macros/s/AKfycbwps0h2GIYtNdbFT2h2sRfVNM_x2yIhZnf0dPQ0SBEsCiyscfA2W3vXzzhZHhfVvp0rTw/exec",
+            "https://script.google.com/macros/s/AKfycbyu2FndqTvHx1WzF7OY-TnxrHraypDkBX4DLmzBpoTVRqEmd_0bnjrokgwmIO9N-nEQzA/exec",
             {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
